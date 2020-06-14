@@ -24,7 +24,7 @@ var LeviTradeCnt = 0;
 var GlobalMsg = {'craft':'','tech':'','relicStation':'','solarRevolution':'','ressourceRetrieval':'','chronosphere':''};
 
 var goldebBuildings = ["temple","tradepost"];
-var switches = {"Energy Control":true, "Iron Will":false, "CollectResBReset":false}
+var switches = {"Energy Control":true, "Iron Will":false, "CollectResBReset":false, "NoBuyCryptoTheology": false, "AlwaysFeedElders": false};
 var ActualTabs = Object.values(gamePage.tabs.filter(tab => tab.tabName != "Stats"));
 var f = (a = 1, {x: c} ={ x: a / 10000}) => c;
 
@@ -50,6 +50,10 @@ var htmlMenuAddition = '<div id="farRightColumn" class="column">' +
 '<button id="autoEnergy" style="color:black" onclick="autoSwitch(\'Energy Control\',  \'autoEnergy\')"> Energy Control </button></br>' +
 '<hr size=3>' +
 '<button id="Collector" title = "Collect late game res(Tcrystal, Relic, Void) before reset." style="color:red" onclick="autoSwitch(\'CollectResBReset\',  \'Collector\')"> CollectResBReset </button></br>' +
+'<hr size=3>' +
+'<button id="NoCryptoTheo" title = "Do Not auto purchase any cryptotheology upgraoes (for relic runs)" style="color:red" onclick="autoSwitch(\'NoBuyCryptoTheology\',  \'NoCryptoTheo\')"> NoBuyCryptoTheology </button></br>' +
+'<hr size=3>' +
+'<button id="FeedElders" title = "Only use necrocorns for elder feeding" style="color:red" onclick="autoSwitch(\'AlwaysFeedElders\',  \'FeedElders\')"> Always feed Elders </button></br>' +
 '<hr size=3>' +
 '<button id="SellSpace" onclick="SellSpaceAndReset();">Sell Space and Reset</button> </br>' +
 '<hr size=3>' +
@@ -202,10 +206,10 @@ function autoPraise(){
               gamePage.religion.praise();
         }
 
-        if (!switches['CollectResBReset']) {
+        if (!switches['CollectResBReset']&& !switches[NoBuyCryptoTheology]) {
             if (gamePage.science.get("cryptotheology").researched){
                 var btn = gamePage.tabs[5].ctPanel.children[0].children;
-                for (var cr = 0; cr < btn.length; cr++) {
+                for (var cr = 0; cr < btn.length -1; cr++) {
                     if (btn[cr].model.enabled && btn[cr].model.visible) {
                         try {
                             btn[cr].controller.buyItem(btn[cr].model, {}, function(result) {
@@ -434,7 +438,7 @@ function autoTrade() {
                     }
 
                     //Feed elders
-                    if (gamePage.resPool.get("necrocorn").value >= 1 &&  gamePage.diplomacy.get("leviathans").energy < (gamePage.religion.getZU("marker").val * 5 + 5) && gamePage.diplomacy.get("leviathans").energy < gamePage.religion.getZU("marker").val + gamePage.resPool.get("necrocorn").value){
+                    if (gamePage.resPool.get("necrocorn").value >= 1 && (switches["AlwaysFeedElders"]  || gamePage.diplomacy.get("leviathans").energy < (gamePage.religion.getZU("marker").val * 5 + 5) && gamePage.diplomacy.get("leviathans").energy < gamePage.religion.getZU("marker").val + gamePage.resPool.get("necrocorn").value)){
                         gamePage.diplomacy.feedElders();
                     }
 
