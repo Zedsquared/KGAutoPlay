@@ -206,7 +206,7 @@ function autoPraise(){
               gamePage.religion.praise();
         }
 
-        if (!switches['CollectResBReset']&& !switches[NoBuyCryptoTheology]) {
+        if (!switches['CollectResBReset']&& !switches['NoBuyCryptoTheology']) {
             if (gamePage.science.get("cryptotheology").researched){
                 var btn = gamePage.tabs[5].ctPanel.children[0].children;
                 for (var cr = 0; cr < btn.length -1; cr++) {
