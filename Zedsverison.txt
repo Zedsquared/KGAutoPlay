@@ -1,0 +1,16 @@
+Additions in this version:
+
+Always feed elders menu button:  
+    Will only use necrocorns for elder feeding when this is enabled. 
+    This is to ensure faster growth of Leviathan energy without auto purchase of unicorn graveyard making corruption much slowwer when fractional necrocorns remain.
+
+
+No Buy Cryptotheology menu button:
+    Stops all cryptotheology auto purchases so that you can play it your way. handy for building up bcoin hoard.
+
+Hacked to stop auto purchase of Holy Genocide as it does nothing yet and is a waste of resources. 
+Nasty hack as it relies of Holy Genocide being the last item in the list. 
+
+RB 15/6/20
+	
+	
